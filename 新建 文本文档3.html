@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYUANDO - 个人博客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+        }
+
+        /* 导航栏样式 - 玻璃效果 */
+        nav {
+            background: rgba(15, 32, 39, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* 主要内容区域 */
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 博客头部 - 玻璃效果 */
+        .blog-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-header h1 {
+            font-size: 3rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-header p {
+            font-size: 1.2rem;
+            color: #a0d2ff;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* 博客文章卡片 - 玻璃效果 */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #4a90e2 0%, #5e60ce 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+
+        .blog-card h2 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card p {
+            color: #c0e0ff;
+            margin-bottom: 1rem;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #a0d2ff;
+            font-size: 0.9rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #5e60ce;
+        }
+
+        /* 关于我部分 - 玻璃效果 */
+        .about-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .about-section h2 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a90e2 0%, #5e60ce 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 页脚 */
+        footer {
+            background: rgba(15, 32, 39, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">RYUANDO</a>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#blog">博客</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main>
+        <div class="container">
+            <!-- 博客头部 -->
+            <div class="blog-header">
+                <h1>欢迎来到我的博客</h1>
+                <p>分享技术、记录生活、探索世界</p>
+            </div>
+
+            <!-- 博客文章网格 -->
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-card-image">📝</div>
+                    <div class="blog-card-content">
+                        <h2>我的第一篇博客</h2>
+                        <p>欢迎来到我的博客！这里我将分享我的技术心得、生活感悟和学习笔记...</p>
+                        <div class="blog-card-meta">
+                            <span>2024年1月15日</span>
+                            <span>阅读时间：5分钟</span>
+                        </div>
+                        <a href="#" class="read-more">阅读更多 →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-card-image">💡</div>
+                    <div class="blog-card-content">
+                        <h2>前端开发最佳实践</h2>
+                        <p>分享一些在前端开发过程中的最佳实践和经验总结，帮助大家提升开发效率...</p>
+                        <div class="blog-card-meta">
+                            <span>2024年1月10日</span>
+                            <span>阅读时间：10分钟</span>
+                        </div>
+                        <a href="#" class="read-more">阅读更多 →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-card-image">🚀</div>
+                    <div class="blog-card-content">
+                        <h2>构建高性能Web应用</h2>
+                        <p>探讨如何构建高性能的Web应用，包括优化技巧、性能监控和用户体验...</p>
+                        <div class="blog-card-meta">
+                            <span>2024年1月5日</span>
+                            <span>阅读时间：15分钟</span>
+                        </div>
+                        <a href="#" class="read-more">阅读更多 →</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- 关于我部分 -->
+            <section class="about-section" id="about">
+                <h2>关于我</h2>
+                <div class="about-content">
+                    <div class="avatar">👨‍💻</div>
+                    <div>
+                        <h3>你好，我是RYUANDO</h3>
+                        <p>我是一名热爱技术的开发者，专注于前端开发和用户体验设计。在这个博客中，我会分享我的学习心得、项目经验和技术见解。</p>
+                        <p>我相信技术可以改变世界，而分享知识可以让这个世界变得更美好。欢迎与我交流！</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2024 RYUANDO 的博客. 保留所有权利.</p>
+    </footer>
+</body>
+</html>
